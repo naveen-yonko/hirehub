@@ -1,0 +1,5 @@
+cd "e:\EDUCATION\5 th Semester\hirehub project\worker-locator"
+
+
+
+.\mvnw spring-boot:run

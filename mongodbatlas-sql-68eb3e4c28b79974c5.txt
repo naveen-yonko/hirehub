@@ -1,0 +1,43 @@
+mongodb://atlas-sql-68eb3e4c28b79974c52a7f06-75cxq2.z.query.mongodb.net/sample_mflix?ssl=true&authSource=admin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mongodb+srv://naveen-yonko:<db_password>@hirehub-cluster.qww6wes.mongodb.net/?retryWrites=true&w=majority&appName=hirehub-cluster
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Then call this endpoint to add the sample workers:
+http://localhost:8080/api/customer/add-sample-workers
+
+To verify the workers were added, check this endpoint:
+http://localhost:8080/api/customer/test/list-all-workers
+
+Finally, refresh your customer dashboard. You should see workers on the map near the Madurai center point.
+
+The workers are now distributed as follows:

@@ -1,0 +1,77 @@
+[
+  {
+    "email": "selvam@gmail.com",
+    "password": "$2a$10$dL4az.xkVBXVZH.2SHXKs.6BtiVmJ4kKgEHmqQQKGY9O5pxYKvZwG",
+    "role": "worker",
+    "location": {
+      "type": "Point",
+      "coordinates": [78.1193, 9.9252]
+    },
+    "workerType": "electrician",
+    "charge": 500,
+    "available": true,
+    "averageRating": 4.5,
+    "ratingCount": 10,
+    "currentJobId": null
+  },
+  {
+    "email": "muthu@gmail.com",
+    "password": "$2a$10$dL4az.xkVBXVZH.2SHXKs.6BtiVmJ4kKgEHmqQQKGY9O5pxYKvZwG",
+    "role": "worker",
+    "location": {
+      "type": "Point",
+      "coordinates": [78.1373, 9.9155]
+    },
+    "workerType": "plumber",
+    "charge": 400,
+    "available": true,
+    "averageRating": 4.2,
+    "ratingCount": 8,
+    "currentJobId": null
+  },
+  {
+    "email": "kannan@gmail.com",
+    "password": "$2a$10$dL4az.xkVBXVZH.2SHXKs.6BtiVmJ4kKgEHmqQQKGY9O5pxYKvZwG",
+    "role": "worker",
+    "location": {
+      "type": "Point",
+      "coordinates": [78.1243, 9.9352]
+    },
+    "workerType": "carpenter",
+    "charge": 600,
+    "available": true,
+    "averageRating": 4.8,
+    "ratingCount": 15,
+    "currentJobId": null
+  },
+  {
+    "email": "raja@gmail.com",
+    "password": "$2a$10$dL4az.xkVBXVZH.2SHXKs.6BtiVmJ4kKgEHmqQQKGY9O5pxYKvZwG",
+    "role": "worker",
+    "location": {
+      "type": "Point",
+      "coordinates": [78.1423, 9.9255]
+    },
+    "workerType": "painter",
+    "charge": 450,
+    "available": true,
+    "averageRating": 4.3,
+    "ratingCount": 12,
+    "currentJobId": null
+  },
+  {
+    "email": "kumar@gmail.com",
+    "password": "$2a$10$dL4az.xkVBXVZH.2SHXKs.6BtiVmJ4kKgEHmqQQKGY9O5pxYKvZwG",
+    "role": "worker",
+    "location": {
+      "type": "Point",
+      "coordinates": [78.1323, 9.9152]
+    },
+    "workerType": "mechanic",
+    "charge": 550,
+    "available": true,
+    "averageRating": 4.6,
+    "ratingCount": 20,
+    "currentJobId": null
+  }
+]

@@ -1,0 +1,47 @@
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #6B7280;
+}
+
+.loading::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    border: 3px solid #E5E7EB;
+    border-radius: 50%;
+    border-top-color: #2563EB;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.error-message {
+    background: #FEF2F2;
+    color: #DC2626;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.error-message::before {
+    content: '⚠️';
+}
+
+.no-results {
+    background: #F9FAFB;
+    color: #6B7280;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin: 10px 0;
+}
