@@ -1,0 +1,29 @@
+# Java
+*.class
+*.log
+*.jar
+*.war
+*.ear
+
+# Maven
+/target/
+apache-maven-3.9.6/
+apache-maven-3.9.6-bin.zip
+
+# Maven wrapper - keep wrapper jar and scripts
+/.mvn/wrapper/maven-wrapper.jar
+
+# IDEs and editors
+/.idea/
+.vscode/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Generated resources
+/target/
+
+# Temporary files
+*.tmp
