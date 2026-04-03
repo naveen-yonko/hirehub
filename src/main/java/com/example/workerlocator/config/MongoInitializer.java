@@ -47,9 +47,15 @@ public class MongoInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println("MongoInitializer: Checking for existing users...");
-        long userCount = userRepository.count();
-        System.out.println("MongoInitializer: Found " + userCount + " existing users");
-        
+        long userCount = 0;
+        try {
+            userCount = userRepository.count();
+            System.out.println("MongoInitializer: Found " + userCount + " existing users");
+        } catch (Exception e) {
+            logger.warn("MongoInitializer: Cannot access MongoDB at startup — skipping test data initialization. Cause: {}", e.toString());
+            return;
+        }
+
         // Only add test users if none exist
         if (userCount == 0) {
             System.out.println("MongoInitializer: Creating test users...");
