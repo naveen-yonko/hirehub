@@ -8,41 +8,40 @@ This README highlights the app UI with annotated screenshots (in `opscreenshots/
 
 All screenshots are in the `opscreenshots/` folder. Below each image is a short description and an example user flow.
 
-- Login / Landing (opscreenshots/Screenshot (407).png)
+-- Login / Landing (opscreenshots/landing.png)
 
   Description: The public landing page with the login card. The form lets users choose `Customer` or `Worker`, enter email/password, and sign in.
 
   Example: A customer signs in with `customer@example.com` and is redirected to the customer dashboard to request services.
 
-  ![Landing / Login](opscreenshots/Screenshot (407).png)
+  ![Landing / Login](opscreenshots/landing.png)
 
-- Customer dashboard (opscreenshots/Screenshot (408).png)
+-- Customer dashboard (opscreenshots/customer-dashboard.png)
 
   Description: Customer view showing nearby workers, request creation form, and active requests list.
 
   Example: Customer picks a worker, sends a service request with a location and service type, and waits for the worker to accept.
 
-  ![Customer Dashboard](opscreenshots/Screenshot (408).png)
+  ![Customer Dashboard](opscreenshots/customer-dashboard.png)
 
-- Worker dashboard (opscreenshots/Screenshot (409).png)
+-- Worker dashboard (opscreenshots/worker-dashboard.png)
 
   Description: Worker view showing incoming requests, current job, and availability toggle.
 
   Example: A worker toggles availability to `true` and sees new nearby requests appear in the incoming list.
 
-  ![Worker Dashboard](opscreenshots/Screenshot (409).png)
+  ![Worker Dashboard](opscreenshots/worker-dashboard.png)
 
-- Request lifecycle screenshots (opscreenshots/Screenshot (410).png — Screenshot (414).png)
-
+-- Request lifecycle screenshots (opscreenshots/request-flow-1.png — request-flow-5.png)
   Description: Additional screenshots demonstrating the request flow, accept/decline actions, and rating flow after a job is completed.
 
   Example: After a worker completes a job, the customer rates the worker and the worker's average rating is updated.
 
-  ![Request Flow 1](opscreenshots/Screenshot (410).png)
-  ![Request Flow 2](opscreenshots/Screenshot (411).png)
-  ![Request Flow 3](opscreenshots/Screenshot (412).png)
-  ![Request Flow 4](opscreenshots/Screenshot (413).png)
-  ![Request Flow 5](opscreenshots/Screenshot (414).png)
+  ![Request Flow 1](opscreenshots/request-flow-1.png)
+  ![Request Flow 2](opscreenshots/request-flow-2.png)
+  ![Request Flow 3](opscreenshots/request-flow-3.png)
+  ![Request Flow 4](opscreenshots/request-flow-4.png)
+  ![Request Flow 5](opscreenshots/request-flow-5.png)
 
 ## Quick start (developer)
 
