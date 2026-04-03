@@ -1,35 +1,69 @@
-# HireHub (Worker Locator)
+# HireHub — Worker Locator
 
-Simple Spring Boot backend + static frontend for a local worker matching app.
+This repository contains a Spring Boot backend and a small static frontend for HireHub, a simple app that helps customers find local workers (plumbers, electricians, carpenters, cleaners, etc.).
 
-## Quick status
-- Project builds successfully with `./mvnw -DskipTests package`.
-- Use `src/main/resources/application.properties` to set MongoDB URI and `jwt.secret` before running.
+This README highlights the app UI with annotated screenshots (in `opscreenshots/`) and provides quick run and deployment examples.
 
-## Screenshots (opscreenshots)
-The `opscreenshots` folder contains UI screenshots used below and in the project documentation.
+## UI walkthrough (screenshots)
 
-- Login / Landing
-  ![Login](opscreenshots/Screenshot (407).png)
-- Dashboard / Customer
+All screenshots are in the `opscreenshots/` folder. Below each image is a short description and an example user flow.
+
+- Login / Landing (opscreenshots/Screenshot (407).png)
+
+  Description: The public landing page with the login card. The form lets users choose `Customer` or `Worker`, enter email/password, and sign in.
+
+  Example: A customer signs in with `customer@example.com` and is redirected to the customer dashboard to request services.
+
+  ![Landing / Login](opscreenshots/Screenshot (407).png)
+
+- Customer dashboard (opscreenshots/Screenshot (408).png)
+
+  Description: Customer view showing nearby workers, request creation form, and active requests list.
+
+  Example: Customer picks a worker, sends a service request with a location and service type, and waits for the worker to accept.
+
   ![Customer Dashboard](opscreenshots/Screenshot (408).png)
-- Dashboard / Worker
+
+- Worker dashboard (opscreenshots/Screenshot (409).png)
+
+  Description: Worker view showing incoming requests, current job, and availability toggle.
+
+  Example: A worker toggles availability to `true` and sees new nearby requests appear in the incoming list.
+
   ![Worker Dashboard](opscreenshots/Screenshot (409).png)
-- Other flows
-  ![Flow 1](opscreenshots/Screenshot (410).png)
-  ![Flow 2](opscreenshots/Screenshot (411).png)
-  ![Flow 3](opscreenshots/Screenshot (412).png)
-  ![Flow 4](opscreenshots/Screenshot (413).png)
-  ![Flow 5](opscreenshots/Screenshot (414).png)
 
-## Run locally
+- Request lifecycle screenshots (opscreenshots/Screenshot (410).png — Screenshot (414).png)
 
-1. Configure MongoDB and JWT in `src/main/resources/application.properties` (or set `spring.data.mongodb.uri`):
+  Description: Additional screenshots demonstrating the request flow, accept/decline actions, and rating flow after a job is completed.
 
-   - `spring.data.mongodb.uri=mongodb://<user>:<pass>@host:port/db` OR set host/port/database properties.
-   - `jwt.secret=` a long random string.
+  Example: After a worker completes a job, the customer rates the worker and the worker's average rating is updated.
 
-2. Build the jar:
+  ![Request Flow 1](opscreenshots/Screenshot (410).png)
+  ![Request Flow 2](opscreenshots/Screenshot (411).png)
+  ![Request Flow 3](opscreenshots/Screenshot (412).png)
+  ![Request Flow 4](opscreenshots/Screenshot (413).png)
+  ![Request Flow 5](opscreenshots/Screenshot (414).png)
+
+## Quick start (developer)
+
+1. Configure runtime properties in `src/main/resources/application.properties`:
+
+   - For local MongoDB (default example):
+
+     ```properties
+     spring.data.mongodb.host=localhost
+     spring.data.mongodb.port=27017
+     spring.data.mongodb.database=hirehub
+     jwt.secret=your_jwt_secret_here
+     ```
+
+   - Or set a single connection string:
+
+     ```properties
+     spring.data.mongodb.uri=mongodb://user:pass@host:27017/hirehub
+     ```
+
+2. Build the project:
 
 ```bash
 ./mvnw -DskipTests package
@@ -41,49 +75,37 @@ The `opscreenshots` folder contains UI screenshots used below and in the project
 java -jar target/worker-locator-0.0.1-SNAPSHOT.jar
 ```
 
-The frontend static files are served from `src/main/resources/static` at `http://localhost:8080`.
+Open `http://localhost:8080` in your browser to see the static frontend. The frontend expects the backend API to be on the same host/port (CORS is enabled for local development in `application.properties`).
 
-## Docker
-The repository includes a simple `Dockerfile` that runs the packaged jar.
+## Docker (quick)
 
-Build image:
+Build the Docker image:
 
 ```bash
 docker build -t hirehub:latest .
 ```
 
-Run container (example with MongoDB connection):
+Run with environment variables:
 
 ```bash
 docker run -e SPRING_DATA_MONGODB_URI="mongodb://host:27017/hirehub" -e JWT_SECRET="your_jwt" -p 8080:8080 hirehub:latest
 ```
 
-## Deploy to a host (suggestions)
-- Render / Railway / Heroku: push Docker image or use `java -jar` with environment variables.
-- Ensure `spring.data.mongodb.uri` points to an accessible MongoDB (Atlas recommended for production).
+## Why the app failed to start earlier
 
-## Common issues & fixes
-- CORS: static frontend expects backend at `http://localhost:8080`. Enable CORS or update `application.properties`.
-- JWT: set `jwt.secret` in `application.properties` or via env var `JWT_SECRET`.
-- Password re-encoding: some code reuses `registerUser()` when saving existing users — avoid calling that method for updates.
+- Root cause observed during runs: the local MongoDB server at `localhost:27017` was not reachable, causing index-creation and data-seeding code to throw exceptions during startup. This prevented Spring Boot from finishing initialization.
 
-## GitHub upload
-I can prepare the repo for push (create/modify files). To push to your repository `https://github.com/naveen-yonko/hirehub` run:
+- What I changed:
+  - Wrapped index creation in `MongoConfig` with a try/catch and logged a warning if index creation failed.
+  - Guarded the test-data initializers (`MongoInitializer` and `DataSeeder`) with try/catch blocks so the application can start even if MongoDB is temporarily unavailable. Seeding will be skipped until MongoDB becomes reachable.
 
-```bash
-git remote add origin https://github.com/naveen-yonko/hirehub.git
-git branch -M main
-git add .
-git commit -m "Prepare project for deployment: README, docs"
-git push -u origin main
-```
+These changes let the web application start and serve static pages even when MongoDB is down; database-dependent features will be disabled until the database becomes available.
 
-If you want me to attempt to add a remote and push from here I will need your Git credentials or a personal access token configured in the environment — please confirm how you'd like to proceed.
+## Next recommended steps (I'll continue if you want)
 
-## Next steps I will take (confirm to proceed):
-- Fix runtime issues (if you provide error logs from running the app).
-- Harden `application.properties` for deployment and add sample `.env` or profiles.
-- Add a GitHub Actions workflow to build and push a Docker image (optional).
+- Start a MongoDB instance (locally or Atlas) and update `application.properties` with the URI so data seeding and indexes run correctly.
+- Add a small healthcheck endpoint and readiness probe (useful for Docker/Kubernetes deployments).
+- Optional: add GitHub Actions that build the jar and the Docker image and run basic smoke tests.
 
 ---
-_Prepared using the repo opscreenshots. Tell me if you want a shorter README or to include additional screenshots inline._
+If you'd like the README to include smaller inline thumbnails with captions (or move screenshots into `docs/`), tell me which layout you prefer and I will update it and push the change.
