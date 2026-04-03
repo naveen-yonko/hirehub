@@ -15,21 +15,27 @@ public class DataSeeder {
     @Bean
     public CommandLineRunner seedUsers(UserRepository userRepository, PasswordEncoder encoder) {
         return args -> {
-            if (userRepository.findByEmail("customer@example.com") == null) {
-                User u = new User();
-                u.setEmail("customer@example.com");
-                u.setRole("customer");
-                u.setPassword(encoder.encode("password"));
-                userRepository.save(u);
-            }
+            try {
+                if (userRepository.findByEmail("customer@example.com") == null) {
+                    User u = new User();
+                    u.setEmail("customer@example.com");
+                    u.setRole("customer");
+                    u.setPassword(encoder.encode("password"));
+                    userRepository.save(u);
+                }
 
-            if (userRepository.findByEmail("worker@example.com") == null) {
-                User w = new User();
-                w.setEmail("worker@example.com");
-                w.setRole("worker");
-                w.setPassword(encoder.encode("password"));
-                w.setAvailable(true);
-                userRepository.save(w);
+                if (userRepository.findByEmail("worker@example.com") == null) {
+                    User w = new User();
+                    w.setEmail("worker@example.com");
+                    w.setRole("worker");
+                    w.setPassword(encoder.encode("password"));
+                    w.setAvailable(true);
+                    userRepository.save(w);
+                }
+            } catch (Exception e) {
+                // MongoDB is not available — skip seeding to allow the app to start
+                org.slf4j.LoggerFactory.getLogger(DataSeeder.class)
+                    .warn("DataSeeder: cannot access MongoDB at startup — skipping seed. Cause: {}", e.toString());
             }
         };
     }
